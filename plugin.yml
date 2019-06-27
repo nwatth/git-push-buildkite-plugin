@@ -1,0 +1,17 @@
+name: Git Push
+description: Push your code to server
+author: https://github.com/nwatth
+requirements:
+  - bash
+  - git
+configuration:
+  properties:
+    remote:
+      type: string
+    machine:
+      type: string
+    login:
+      type: string
+    password:
+      type: string
+  additionalProperties: false
