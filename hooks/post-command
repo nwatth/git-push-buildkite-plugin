@@ -6,6 +6,6 @@ echo "machine ${BUILDKITE_PLUGIN_GIT_PUSH_MACHINE:-}\n\tlogin ${BUILDKITE_PLUGIN
 
 git remote add underworld ${BUILDKITE_PLUGIN_GIT_PUSH_REMOTE:-origin}
 
-git fetch origin && git push heroku ${BUILDKITE_BRANCH:-}:master --force
+git fetch origin && git push underworld ${BUILDKITE_BRANCH:-}:master --force
 
 git remote rm underworld
