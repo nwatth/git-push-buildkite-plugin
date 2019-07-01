@@ -2,12 +2,12 @@
 
 set -xeo pipefail
 
-function plugin_read_list() {
-  prefix_read_list "BUILDKITE_PLUGIN_GIT_PUSH_$1"
-}
+echo $BUILDKITE_PLUGIN_GIT_PUSH_MACHINE
+echo $BUILDKITE_PLUGIN_HEROKU_MACHINE
 
-function prefix_read_list() {
-  local prefix="$1"
+# Reads either a value or a list from plugin config
+function plugin_read_list() {
+  local prefix="BUILDKITE_PLUGIN_GIT_PUSH_$1"
   local parameter="${prefix}_0"
 
   if [[ -n "${!parameter:-}" ]]; then
@@ -24,7 +24,7 @@ function prefix_read_list() {
 }
 
 while read -r line ; do
-  [[ -n "$line" ]] && echo "$line"
+  echo "$line"
 done <<< "$(plugin_read_list MACHINE)"
 
 echo "machine $BUILDKITE_PLUGIN_GIT_PUSH_MACHINE\n\tlogin $BUILDKITE_PLUGIN_GIT_PUSH_LOGIN\n\tpassword $BUILDKITE_PLUGIN_GIT_PUSH_PASSWORD" > ~/.netrc
