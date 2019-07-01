@@ -4,7 +4,11 @@ set -ueo pipefail
 
 echo "machine $BUILDKITE_PLUGIN_GIT_PUSH_MACHINE\n\tlogin $BUILDKITE_PLUGIN_GIT_PUSH_LOGIN\n\tpassword $BUILDKITE_PLUGIN_GIT_PUSH_PASSWORD" > ~/.netrc
 
-git remote add underworld $BUILDKITE_PLUGIN_GIT_PUSH_REMOTE
+if git remote | grep -w $name ; then
+  git remote set-url underworld $BUILDKITE_PLUGIN_GIT_PUSH_REMOTE
+else
+  git remote add underworld $BUILDKITE_PLUGIN_GIT_PUSH_REMOTE
+if
 
 git fetch origin && git push underworld $BUILDKITE_BRANCH:master --force
 
