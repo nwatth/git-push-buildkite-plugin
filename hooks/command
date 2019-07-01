@@ -2,11 +2,13 @@
 
 set -xeo pipefail
 
-echo $BUILDKITE_PLUGIN_GIT_PUSH_MACHINE
-echo $BUILDKITE_PLUGIN_GIT_PUSH_LOGIN
-echo $BUILDKITE_PLUGIN_GIT_PUSH_PASSWORD
-echo $BUILDKITE_PLUGIN_GIT_PUSH_REMOTE
-echo $BUILDKITE_BRANCH
+function plugin_read_list() {
+  prefix_read_list "BUILDKITE_PLUGIN_DOCKER_COMPOSE_$1"
+}
+
+while read -r line ; do
+  [[ -n "$line" ]] && echo "$line"
+done <<< "$(plugin_read_list MACHINE)"
 
 echo "machine $BUILDKITE_PLUGIN_GIT_PUSH_MACHINE\n\tlogin $BUILDKITE_PLUGIN_GIT_PUSH_LOGIN\n\tpassword $BUILDKITE_PLUGIN_GIT_PUSH_PASSWORD" > ~/.netrc
 
